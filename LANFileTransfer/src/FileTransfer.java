@@ -391,7 +391,8 @@ public class FileTransfer extends javax.swing.JFrame {
 
 public class Client extends Thread
 { 
-    long BUFFER_SIZE = 1000;
+    int READ_BUFFER_SIZE = 1000;
+    int DISPLAY_INTERVAL = 1000;
     
     // initialize socket and input output streams 
     private Socket socket            = null; 
@@ -516,36 +517,41 @@ public class Client extends Thread
                     Sender_Progress_Main.setValue(0);
                     Sender_Progress_Main.setMaximum((int)filesize);
 
-                    int c;
-                    while(loaded_size < filesize)         //Read byte by byte
+                    int display_counter = 1;
+                    byte[] b = new byte[READ_BUFFER_SIZE];
+                    while(loaded_size < filesize)         //Read byte by byte or by buffer
                     {
-                        c = (byte) fin.read();
+//                        c = (byte) fin.read();
+//                        loaded_size = loaded_size + 1;
+//                        out.write(c);
                         
-                        loaded_size = loaded_size + 1;
+                        if(loaded_size + READ_BUFFER_SIZE > filesize) b = new byte[(int)(filesize - loaded_size)];
+                        fin.read(b);
+                        loaded_size = loaded_size + b.length;
+                        out.write(b);
 
                         // DISPLAY // 
                         //System.out.println("Client: " + loaded_size + " - " + c); 
                         // DISPLAY // 
                         
                         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                        out.write(c);
-                        
-                        if(loaded_size % BUFFER_SIZE == 0)
+                        if(loaded_size / display_counter > DISPLAY_INTERVAL)
                         {
-                            // Display code WAS here
-                            // Display Thread Init
-                            Thread displayThread = new DisplayProgressThread("Sender");
-                            if(displayThread.isAlive()) displayThread.interrupt();
-                            displayThread.start();
+                            display_counter = display_counter + 1;
+                            // Display Thread
+//                            Thread displayThread = new DisplayProgressThread("Sender", filename, filesize, loaded_size);
+//                            if(displayThread.isAlive()) displayThread.interrupt();
+//                            displayThread.start();
+
+                            //if(loaded_size > filesize) loaded_size = filesize;
+                            
+                            SendFile_TextArea.append(filename + ": " + loaded_size + "/" + filesize + ".\n");
+                            System.out.println(filename + ": " + loaded_size + "/" + filesize + ".\n");
+                            Sender_Progress_Main.setValue((int) loaded_size);
                         }
                     }
-
-                    SendFile_TextArea.append(filename + ": " + loaded_size + "/" + filesize + ".\n");
-                    System.out.println(filename + ": " + loaded_size + "/" + filesize + ".\n");
-
                     System.out.println("Client Over!");
                     fin.close();
-                    
                 }
                 SendFile_TextArea.append(filename + "." + ext + " of size " + filesize + " sent successfully.\n");
                 System.out.println(filename + "." + ext + " of size " + filesize + " sent successfully.\n");
@@ -742,34 +748,40 @@ public class ReceiveFileThread extends Thread
                 Receiver_Progress_Main.setValue(0);
                 Receiver_Progress_Main.setMaximum((int)server.filesize[client_index]);
 
-                //String line;
-                int c;
-                // reads file from client until "Over" is sent 
+                int display_counter = 1;
+                byte[] b = new byte[client.READ_BUFFER_SIZE];
                 while (((server.loaded_size[client_index] < server.filesize[client_index]) && true))
                 { 
 
                     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    c = server.in[client_index].read();
-
-                    server.loaded_size[client_index] = server.loaded_size[client_index] + 1;
+//                    c = server.in[client_index].read();
+//                    server.loaded_size[client_index] = server.loaded_size[client_index] + 1;
+//                    fout.write((byte) c);
+                    
+                    if(server.loaded_size[client_index] + client.READ_BUFFER_SIZE > server.filesize[client_index]) b = new byte[(int)(server.filesize[client_index] - server.loaded_size[client_index])];
+                    
+                    server.in[client_index].read(b);
+                    server.loaded_size[client_index] = server.loaded_size[client_index] + b.length;
+                    fout.write(b);
 
                     // DISPLAY  
                     //System.out.println("\t\t\t\t\t\tServer: " + server.loaded_size[client_index] + " - " + c); 
                     // DISPLAY // 
 
-                    fout.write((byte) c);
-
-                    if(server.loaded_size[client_index] % client.BUFFER_SIZE == 0)
+                    if(server.loaded_size[client_index] / display_counter > client.DISPLAY_INTERVAL)
                     {
-                        // Display Code WAS here
+                        display_counter = display_counter + 1;
                         // Display Thread Init
-                        Thread displayThread = new DisplayProgressThread("Receiver");
-                        displayThread.start();
+//                        Thread displayThread = new DisplayProgressThread("Receiver", server.filename[client_index], server.filesize[client_index], server.loaded_size[client_index]);
+//                        if(displayThread.isAlive()) displayThread.interrupt();
+//                        displayThread.start();
+
+                        ReceiveFile_TextArea.append(server.filename[client_index] + ": " + server.loaded_size[client_index] + "/" + server.filesize[client_index] + ".\n");
+                        //System.out.println(server.filename[client_index] + ": " + server.loaded_size[client_index] + "/" + server.filesize[client_index] + ".\n");
+                        Receiver_Progress_Main.setValue((int) server.loaded_size[client_index]);
                     }
                 } 
                 System.out.println("Server Over!");
-                ReceiveFile_TextArea.append(server.filename[client_index] + ": " + server.loaded_size[client_index] + "/" + server.filesize[client_index] + ".\n");
-
                 fout.close();
             }
 
@@ -808,24 +820,31 @@ public class ServerThreadClass extends Thread
 public class DisplayProgressThread extends Thread
 {
     String mode;
-    public DisplayProgressThread(String m)
+    String filename;
+    long filesize;
+    long loaded_size;
+    
+    public DisplayProgressThread(String mode_param, String filename_param, long filesize_param, long loaded_size_param)
     {
-        mode = m;
+        mode = mode_param;
+        filename = filename_param;
+        filesize = filesize_param;
+        loaded_size = loaded_size_param;
     }
 
     public void run()
     {
         if(mode.equals("Receiver"))
         {
-            ReceiveFile_TextArea.append(server.filename[client_index] + ": " + server.loaded_size[client_index] + "/" + server.filesize[client_index] + ".\n");
-            //System.out.println(filename[client_index] + ": " + loaded_size + "/" + filesize[client_index] + ".\n");
-            Receiver_Progress_Main.setValue((int) server.loaded_size[client_index]);
+            ReceiveFile_TextArea.append(filename + ": " + loaded_size + "/" + filesize + ".\n");
+            //System.out.println(filename + ": " + loaded_size + "/" + filesize + ".\n");
+            Receiver_Progress_Main.setValue((int) loaded_size);
         }
-        else if(mode.equals("Receiver"))
+        else if(mode.equals("Sender"))
         {
-            SendFile_TextArea.append(client.filename + ": " + client.loaded_size + "/" + client.filesize + ".\n");
-            System.out.println(client.filename + ": " + client.loaded_size + "/" + client.filesize + ".\n");
-            Sender_Progress_Main.setValue((int) client.loaded_size);
+            SendFile_TextArea.append(filename + ": " + loaded_size + "/" + filesize + ".\n");
+            System.out.println(filename + ": " + loaded_size + "/" + filesize + ".\n");
+            Sender_Progress_Main.setValue((int) loaded_size);
         }
     } 
 }
