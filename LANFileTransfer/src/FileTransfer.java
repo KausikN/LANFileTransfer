@@ -568,6 +568,8 @@ public class Client extends Thread
             System.out.println(i); 
             errors = i;
         } 
+        
+        CloseConnection();
     }
 }
 
@@ -788,7 +790,7 @@ public class ReceiveFileThread extends Thread
             ReceiveFile_TextArea.append(server.filename[client_index] + "." + server.ext[client_index] + " of size " + server.filesize[client_index] + " received successfully.\n");
             System.out.println(server.filename[client_index] + "." + server.ext[client_index] + " of size " + server.filesize[client_index] + " received successfully.\n");
 
-            client.CloseConnection();
+            //client.CloseConnection();
             server.CloseConnection(client_index);
         }
         catch(IOException i) 
