@@ -559,7 +559,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="Filename_TextBox">
               <Properties>
-                <Property name="text" type="java.lang.String" value="a.out"/>
+                <Property name="text" type="java.lang.String" value="FileTransfer_Application.c"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="Directory_TextBox">

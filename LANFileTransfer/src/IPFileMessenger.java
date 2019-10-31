@@ -1,5 +1,7 @@
 import java.net.*; 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.time.Instant;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -251,7 +253,7 @@ public class IPFileMessenger extends javax.swing.JFrame {
             }
         });
 
-        Filename_TextBox.setText("a.out");
+        Filename_TextBox.setText("FileTransfer_Application.c");
 
         Directory_TextBox.setText("C:\\GitHub Codes and Projects\\Networking Files\\LANFileTransfer");
 
@@ -508,7 +510,7 @@ public class Client extends Thread
 //            Socket acksocket = ackserver.accept();
 //            System.out.println("ACK CONNECTED");
 //            String ack = new DataInputStream(acksocket.getInputStream()).readUTF();
-            String ack = client.in.readUTF();
+            String ack = in.readUTF();
 //            String ack = server.in[client_index].readUTF();
             
             // Disable Buttons
@@ -536,6 +538,7 @@ public class Client extends Thread
 
                     int display_counter = 1;
                     byte[] b = new byte[READ_BUFFER_SIZE];
+                    
                     while(loaded_size < filesize)         //Read byte by byte or by buffer
                     {
 //                        c = (byte) fin.read();
@@ -543,16 +546,25 @@ public class Client extends Thread
 //                        out.write(c);
                         
                         if(loaded_size + READ_BUFFER_SIZE > filesize) b = new byte[(int)(filesize - loaded_size)];
+                        else b = new byte[READ_BUFFER_SIZE];
+                        System.out.println("B LENGTH: " + b.length);
                         fin.read(b);
+                        //System.out.println("File: " + new String(b, StandardCharsets.UTF_8));
                         loaded_size = loaded_size + b.length;
+                        System.out.println("waiting for start_ack" + Instant.now());
+                        String start_ack = in.readUTF();
+                        System.out.println("start_ack: " + start_ack + " " + Instant.now());
                         out.write(b);
-
+                        System.out.println("written data " + Instant.now());
+                        System.out.println("waiting for end_ack" + Instant.now());
+                        String end_ack = in.readUTF();
+                        System.out.println("end_ack: " + end_ack + " " + Instant.now());
                         // DISPLAY // 
                         //System.out.println("Client: " + loaded_size + " - " + c); 
                         // DISPLAY // 
                         
                         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                        if(loaded_size / display_counter > DISPLAY_INTERVAL)
+                        if(loaded_size / display_counter >= DISPLAY_INTERVAL)
                         {
                             display_counter = display_counter + 1;
                             // Display Thread
@@ -586,7 +598,7 @@ public class Client extends Thread
             errors = i;
         } 
         
-        CloseConnection();
+        //CloseConnection();
     }
 }
 
@@ -812,6 +824,7 @@ public class ReceiveFileThread extends Thread
 
                 int display_counter = 1;
                 byte[] b = new byte[client.READ_BUFFER_SIZE];
+                
                 while (((server.loaded_size[client_index] < server.filesize[client_index]) && true))
                 { 
 
@@ -821,8 +834,15 @@ public class ReceiveFileThread extends Thread
 //                    fout.write((byte) c);
                     
                     if(server.loaded_size[client_index] + client.READ_BUFFER_SIZE > server.filesize[client_index]) b = new byte[(int)(server.filesize[client_index] - server.loaded_size[client_index])];
-                    
+                    else b = new byte[client.READ_BUFFER_SIZE];
+                    server.out[client_index].writeUTF("s"); // START ACK Make Sender wait till receiver is ready to receive
+                    System.out.println("written start_ack " + Instant.now());
+                    System.out.println("waiting for data " + Instant.now());
                     server.in[client_index].read(b);
+                    System.out.println("read data " + Instant.now());
+                    server.out[client_index].writeUTF("e"); // END ACK Make Sender wait till receiver is ready to receive
+                    System.out.println("written end_ack " + Instant.now());
+                    System.out.println("----------DATA - " + b.length + "---------\n" + new String(b, StandardCharsets.UTF_8));
                     server.loaded_size[client_index] = server.loaded_size[client_index] + b.length;
                     fout.write(b);
 
@@ -830,7 +850,7 @@ public class ReceiveFileThread extends Thread
                     //System.out.println("\t\t\t\t\t\tServer: " + server.loaded_size[client_index] + " - " + c); 
                     // DISPLAY // 
 
-                    if(server.loaded_size[client_index] / display_counter > client.DISPLAY_INTERVAL)
+                    if(server.loaded_size[client_index] / display_counter >= client.DISPLAY_INTERVAL)
                     {
                         display_counter = display_counter + 1;
                         // Display Thread Init
@@ -900,6 +920,7 @@ public class ServerThreadClass extends Thread
         }
         catch(IOException i) 
         { 
+            System.out.println("IO Error in ServerThreadClass");
             System.out.println(i); 
         } 
     } 
@@ -1004,6 +1025,7 @@ public class ChatClientServerThread extends Thread
     }
     catch(IOException i) 
     { 
+        System.out.println("IO Error in SendFile Button");
         System.out.println(i); 
     } 
     }//GEN-LAST:event_SendFile_ButtonActionPerformed
@@ -1078,6 +1100,7 @@ public class ChatClientServerThread extends Thread
     }
     catch(IOException i) 
     { 
+        System.out.println("IO Error in SendChat Button");
         System.out.println(i); 
     } 
     }//GEN-LAST:event_SendChat_ButtonActionPerformed

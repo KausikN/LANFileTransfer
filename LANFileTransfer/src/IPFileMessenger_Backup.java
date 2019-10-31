@@ -1,5 +1,6 @@
 import java.net.*; 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -11,12 +12,12 @@ import java.io.*;
  *
  * @author Kausik N
  */
-public class FileTransfer extends javax.swing.JFrame {
+public class IPFileMessenger_Backup extends javax.swing.JFrame {
 
     /**
      * Creates new form Test
      */
-    public FileTransfer() {
+    public IPFileMessenger_Backup() {
         initComponents();
     }
 
@@ -43,14 +44,10 @@ public class FileTransfer extends javax.swing.JFrame {
         Receiver_Port_Label = new javax.swing.JLabel();
         Receiver_Port_TextBox = new javax.swing.JTextField();
         Sender_Panel = new javax.swing.JPanel();
-        Directory_Label = new javax.swing.JLabel();
-        Filename_Label = new javax.swing.JLabel();
-        Directory_TextBox = new javax.swing.JTextField();
-        Filename_TextBox = new javax.swing.JTextField();
-        SendFile_Button = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        SendFile_TextArea = new javax.swing.JTextArea();
-        Sender_Progress_Main = new javax.swing.JProgressBar();
+        ChatHistory_TextArea = new javax.swing.JTextArea();
+        Chat_TextField = new javax.swing.JTextField();
+        SendChat_Button = new javax.swing.JButton();
         Receiver_Panel = new javax.swing.JPanel();
         DestDir_Label = new javax.swing.JLabel();
         DestFilename_Label = new javax.swing.JLabel();
@@ -58,9 +55,13 @@ public class FileTransfer extends javax.swing.JFrame {
         DestFilename_TextBox = new javax.swing.JTextField();
         ReceiveFile_Button = new javax.swing.JButton();
         RejectFile_Button = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        ReceiveFile_TextArea = new javax.swing.JTextArea();
         Receiver_Progress_Main = new javax.swing.JProgressBar();
+        Filename_TextBox = new javax.swing.JTextField();
+        Directory_TextBox = new javax.swing.JTextField();
+        Directory_Label = new javax.swing.JLabel();
+        Filename_Label = new javax.swing.JLabel();
+        SendFile_Button = new javax.swing.JButton();
+        Sender_Progress_Main = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -173,36 +174,20 @@ public class FileTransfer extends javax.swing.JFrame {
         );
 
         Sender_Panel.setBackground(new java.awt.Color(0, 0, 0));
-        Sender_Panel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 204, 204)), "Sender", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), new java.awt.Color(0, 204, 204))); // NOI18N
-        Sender_Panel.setForeground(new java.awt.Color(0, 0, 0));
+        Sender_Panel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 204, 204)), "Chat", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 204, 204))); // NOI18N
 
-        Directory_Label.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        Directory_Label.setForeground(new java.awt.Color(0, 255, 204));
-        Directory_Label.setText("Directory");
+        ChatHistory_TextArea.setEditable(false);
+        ChatHistory_TextArea.setColumns(20);
+        ChatHistory_TextArea.setRows(5);
+        jScrollPane2.setViewportView(ChatHistory_TextArea);
 
-        Filename_Label.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        Filename_Label.setForeground(new java.awt.Color(0, 255, 204));
-        Filename_Label.setText("Filename");
-
-        Directory_TextBox.setText("C:\\GitHub Codes and Projects\\Networking Files\\LANFileTransfer");
-
-        Filename_TextBox.setText("a.out");
-
-        SendFile_Button.setBackground(new java.awt.Color(0, 0, 0));
-        SendFile_Button.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        SendFile_Button.setForeground(new java.awt.Color(0, 255, 204));
-        SendFile_Button.setText("Send File");
-        SendFile_Button.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 204, 204)));
-        SendFile_Button.addActionListener(new java.awt.event.ActionListener() {
+        SendChat_Button.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        SendChat_Button.setText(">");
+        SendChat_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SendFile_ButtonActionPerformed(evt);
+                SendChat_ButtonActionPerformed(evt);
             }
         });
-
-        SendFile_TextArea.setEditable(false);
-        SendFile_TextArea.setColumns(20);
-        SendFile_TextArea.setRows(5);
-        jScrollPane2.setViewportView(SendFile_TextArea);
 
         javax.swing.GroupLayout Sender_PanelLayout = new javax.swing.GroupLayout(Sender_Panel);
         Sender_Panel.setLayout(Sender_PanelLayout);
@@ -211,54 +196,35 @@ public class FileTransfer extends javax.swing.JFrame {
             .addGroup(Sender_PanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(Sender_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Sender_PanelLayout.createSequentialGroup()
-                        .addGroup(Sender_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(Sender_PanelLayout.createSequentialGroup()
-                                .addComponent(Directory_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Directory_TextBox))
-                            .addGroup(Sender_PanelLayout.createSequentialGroup()
-                                .addComponent(Filename_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Filename_TextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 279, Short.MAX_VALUE)
-                        .addComponent(SendFile_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2)
-                    .addComponent(Sender_Progress_Main, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(Sender_PanelLayout.createSequentialGroup()
+                        .addComponent(Chat_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 914, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(SendChat_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         Sender_PanelLayout.setVerticalGroup(
             Sender_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Sender_PanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(Sender_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(Sender_PanelLayout.createSequentialGroup()
-                        .addGroup(Sender_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Directory_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Directory_TextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(Sender_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Filename_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Filename_TextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(SendFile_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Sender_Progress_Main, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(Sender_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Chat_TextField, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(SendChat_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         Receiver_Panel.setBackground(new java.awt.Color(0, 0, 0));
-        Receiver_Panel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 204, 204)), "Receiver", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), new java.awt.Color(0, 204, 204))); // NOI18N
-        Receiver_Panel.setForeground(new java.awt.Color(0, 0, 0));
+        Receiver_Panel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 204, 204)), "File Transfer", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 204, 204))); // NOI18N
 
         DestDir_Label.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         DestDir_Label.setForeground(new java.awt.Color(0, 255, 204));
-        DestDir_Label.setText("Directory");
+        DestDir_Label.setText("Recv Directory");
 
         DestFilename_Label.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         DestFilename_Label.setForeground(new java.awt.Color(0, 255, 204));
-        DestFilename_Label.setText("Filename");
+        DestFilename_Label.setText("Recv Filename");
 
         DestDir_TextBox.setText("C:\\GitHub Codes and Projects\\Networking Files\\LANFileTransfer");
 
@@ -286,56 +252,98 @@ public class FileTransfer extends javax.swing.JFrame {
             }
         });
 
-        ReceiveFile_TextArea.setEditable(false);
-        ReceiveFile_TextArea.setColumns(20);
-        ReceiveFile_TextArea.setRows(5);
-        jScrollPane1.setViewportView(ReceiveFile_TextArea);
+        Filename_TextBox.setText("FileTransfer_Application.c");
+
+        Directory_TextBox.setText("C:\\GitHub Codes and Projects\\Networking Files\\LANFileTransfer");
+
+        Directory_Label.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        Directory_Label.setForeground(new java.awt.Color(0, 255, 204));
+        Directory_Label.setText("Send Directory");
+
+        Filename_Label.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        Filename_Label.setForeground(new java.awt.Color(0, 255, 204));
+        Filename_Label.setText("Send Filename");
+
+        SendFile_Button.setBackground(new java.awt.Color(0, 0, 0));
+        SendFile_Button.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        SendFile_Button.setForeground(new java.awt.Color(0, 255, 204));
+        SendFile_Button.setText("Send File");
+        SendFile_Button.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 204, 204)));
+        SendFile_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SendFile_ButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout Receiver_PanelLayout = new javax.swing.GroupLayout(Receiver_Panel);
         Receiver_Panel.setLayout(Receiver_PanelLayout);
         Receiver_PanelLayout.setHorizontalGroup(
             Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Receiver_PanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(Receiver_Progress_Main, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, Receiver_PanelLayout.createSequentialGroup()
-                        .addGroup(Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(Receiver_PanelLayout.createSequentialGroup()
-                                .addComponent(DestDir_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(DestDir_TextBox))
-                            .addGroup(Receiver_PanelLayout.createSequentialGroup()
-                                .addComponent(DestFilename_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(DestFilename_TextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
-                        .addComponent(RejectFile_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ReceiveFile_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
+            .addGroup(Receiver_PanelLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Directory_Label)
+                    .addComponent(Filename_Label))
+                .addGap(35, 35, 35)
+                .addGroup(Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Filename_TextBox)
+                    .addComponent(Directory_TextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Receiver_Progress_Main, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
+                    .addGroup(Receiver_PanelLayout.createSequentialGroup()
+                        .addComponent(SendFile_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(Sender_Progress_Main, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(Receiver_PanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(DestDir_Label)
+                    .addComponent(DestFilename_Label))
+                .addGap(37, 37, 37)
+                .addGroup(Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(DestFilename_TextBox, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
+                    .addComponent(DestDir_TextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(RejectFile_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ReceiveFile_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         Receiver_PanelLayout.setVerticalGroup(
             Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Receiver_PanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(Receiver_PanelLayout.createSequentialGroup()
+                        .addComponent(SendFile_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(Sender_Progress_Main, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(Receiver_PanelLayout.createSequentialGroup()
+                        .addGroup(Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Directory_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Directory_TextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Filename_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Filename_TextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(45, 45, 45)
                 .addGroup(Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(Receiver_PanelLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(DestDir_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(DestDir_TextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(DestFilename_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(DestFilename_TextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(ReceiveFile_Button, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(RejectFile_Button, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Receiver_Progress_Main, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Receiver_PanelLayout.createSequentialGroup()
+                        .addGroup(Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(DestDir_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(DestDir_TextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(DestFilename_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(DestFilename_TextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Receiver_PanelLayout.createSequentialGroup()
+                        .addGroup(Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(RejectFile_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ReceiveFile_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Receiver_Progress_Main, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -398,6 +406,7 @@ public class Client extends Thread
     private Socket socket            = null; 
     private DataOutputStream out     = null; 
     private DataInputStream in       = null;
+    public DataOutputStream chat_out     = null; 
     
     File file;
     String filename = "";
@@ -420,6 +429,8 @@ public class Client extends Thread
             // sends output to the socket 
             out    = new DataOutputStream(socket.getOutputStream()); 
             in     = new DataInputStream(socket.getInputStream());
+            
+            chat_out = new DataOutputStream(socket.getOutputStream());
         } 
         catch(UnknownHostException u) 
         { 
@@ -429,9 +440,11 @@ public class Client extends Thread
         } 
         catch(IOException i) 
         { 
-            System.out.println("IO Error in client creation");
-            System.out.println(i); 
+            System.out.println("IO Error in client creation first time");
+            System.out.println(i);
             errors = i;
+            Thread retryclientconn_thread = new ChatClientServerThread('c');
+            retryclientconn_thread.start();
         } 
     } 
     
@@ -441,7 +454,8 @@ public class Client extends Thread
         try
         { 
             in.close();
-            out.close(); 
+            out.close();
+            chat_out.close();
             socket.close(); 
         } 
         catch(IOException i) 
@@ -461,15 +475,19 @@ public class Client extends Thread
         file = new File(file, filename + "." + ext);
         if(!file.exists())
         {
-            SendFile_TextArea.setText(Directory_TextBox.getText() + "\\" + filename + "." + ext + ": File Does not Exist.\n");
+            ChatHistory_TextArea.append("\n" + Directory_TextBox.getText() + "\\" + filename + "." + ext + ": File Does not Exist.\n");
             System.out.println(Directory_TextBox.getText() + "\\" + filename + "." + ext + ": File Does not Exist.\n");
             return;
         }
         System.out.println(Directory_TextBox.getText() + "\\" + filename + "." + ext + ": File Does Exist.\n");
         filesize = file.length();
         
-        SendFile_TextArea.setText("Sending " + filename + "." + ext + " of size " + filesize + "...\n");
-
+        ChatHistory_TextArea.append("\nSending " + filename + "." + ext + " of size " + filesize + "...\n");
+        
+        // Say that you are sending a file not chatting
+        chat_out.writeUTF("file");
+        //System.out.println("Written 'file' to chat_out");
+        
         // Read filename and ext and filesize
         out.writeUTF(filename);
         out.writeUTF(ext);
@@ -502,7 +520,7 @@ public class Client extends Thread
 
             if(ack.equals("Accepted"))
             {
-                SendFile_TextArea.append("Sending " + filename + "." + ext + " of size " + filesize + " ACCEPTED.\n");
+                ChatHistory_TextArea.append("Sending " + filename + "." + ext + " of size " + filesize + " ACCEPTED.\n");
                 System.out.println("Sending " + filename + "." + ext + " of size " + filesize + " ACCEPTED.\n");
 
                 try ( 
@@ -526,7 +544,9 @@ public class Client extends Thread
 //                        out.write(c);
                         
                         if(loaded_size + READ_BUFFER_SIZE > filesize) b = new byte[(int)(filesize - loaded_size)];
+                        else b = new byte[READ_BUFFER_SIZE];
                         fin.read(b);
+                        //System.out.println("File: " + new String(b, StandardCharsets.UTF_8));
                         loaded_size = loaded_size + b.length;
                         out.write(b);
 
@@ -535,7 +555,7 @@ public class Client extends Thread
                         // DISPLAY // 
                         
                         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                        if(loaded_size / display_counter > DISPLAY_INTERVAL)
+                        if(loaded_size / display_counter >= DISPLAY_INTERVAL)
                         {
                             display_counter = display_counter + 1;
                             // Display Thread
@@ -545,7 +565,7 @@ public class Client extends Thread
 
                             //if(loaded_size > filesize) loaded_size = filesize;
                             
-                            SendFile_TextArea.append(filename + ": " + loaded_size + "/" + filesize + ".\n");
+                            ChatHistory_TextArea.append(filename + ": " + loaded_size + "/" + filesize + ".\n");
                             System.out.println(filename + ": " + loaded_size + "/" + filesize + ".\n");
                             Sender_Progress_Main.setValue((int) loaded_size);
                         }
@@ -553,12 +573,12 @@ public class Client extends Thread
                     System.out.println("Client Over!");
                     fin.close();
                 }
-                SendFile_TextArea.append(filename + "." + ext + " of size " + filesize + " sent successfully.\n");
+                ChatHistory_TextArea.append(filename + "." + ext + " of size " + filesize + " sent successfully.\n");
                 System.out.println(filename + "." + ext + " of size " + filesize + " sent successfully.\n");
             }
             else 
             {
-                SendFile_TextArea.append("Sending " + filename + "." + ext + " of size " + filesize + " REJECTED.\n");
+                ChatHistory_TextArea.append("Sending " + filename + "." + ext + " of size " + filesize + " REJECTED.\n");
                 System.out.println("Sending " + filename + "." + ext + " of size " + filesize + " REJECTED.\n");
             }
         }
@@ -569,7 +589,7 @@ public class Client extends Thread
             errors = i;
         } 
         
-        CloseConnection();
+        //CloseConnection();
     }
 }
 
@@ -580,6 +600,8 @@ public class Server
     private ServerSocket      serversoc   = null; 
     private DataInputStream[] in       = new DataInputStream[10];
     private DataOutputStream[] out     = new DataOutputStream[10];
+    
+    public DataInputStream[] chat_in       = new DataInputStream[10];
     
     int no_of_clients = 0;
     boolean[] client_availablity = new boolean[10]; 
@@ -649,17 +671,25 @@ public class Server
         } 
     }
     
-    void CloseConnection(int client_index)
+    void CloseConnection(int client_index, boolean closeAll)
     {
         try
         {
-            System.out.println("Closing connection"); 
+            System.out.println("Closing in and out connection"); 
             // close connection 
-            socket[client_index].close(); 
             in[client_index].close();
             out[client_index].close();
-            no_of_clients = no_of_clients - 1;
-            client_availablity[client_index] = true;
+            
+            if(closeAll)
+            {
+                System.out.println("Closing socket connection"); 
+                socket[client_index].close(); 
+            
+                chat_in[client_index].close();
+
+                no_of_clients = no_of_clients - 1;
+                client_availablity[client_index] = true;
+            }
         }
         catch(IOException i) 
         { 
@@ -667,6 +697,38 @@ public class Server
             System.out.println(i); 
             errors = i;
         } 
+    }
+    
+    void Chat_Init(int client_index)
+    {
+        try
+        {
+        chat_in[client_index] = new DataInputStream(socket[client_index].getInputStream()); 
+        }
+        catch(IOException i) 
+        { 
+            System.out.println("IO Error in receiving file in Chat Init");
+            System.out.println(i); 
+            errors = i;
+        } 
+    }
+    
+    String Chat_Listen(int client_index)
+    {
+        try
+        {
+            //System.out.println("Waiting for read at ChatListen fro clientindex: " + client_index);
+            String read_text = chat_in[client_index].readUTF();
+            //System.out.println("Read " + read_text + " from chat_in");
+            return read_text;
+        }
+        catch(IOException i) 
+        { 
+            System.out.println("IO Error in receiving file in Chat Listen");
+            System.out.println(i); 
+            errors = i;
+        }
+        return "";
     }
     
     void ReceiveFile_Init(int client_index)
@@ -683,11 +745,12 @@ public class Server
             ext[client_index] = in[client_index].readUTF(); 
             filesize[client_index] = Integer.parseInt(in[client_index].readUTF()); 
 
-            ReceiveFile_TextArea.setText(socket[client_index].getInetAddress() + " wants to send " + filename[client_index] + "." + ext[client_index] + " of size " + filesize[client_index] + "...\n");
+            ChatHistory_TextArea.append("\n" + socket[client_index].getInetAddress() + " wants to send " + filename[client_index] + "." + ext[client_index] + " of size " + filesize[client_index] + "...\n");
             System.out.println(socket[client_index].getInetAddress() + " wants to send " + filename[client_index] + "." + ext[client_index] + " of size " + filesize[client_index] + "...");
         }
         catch(IOException i) 
         { 
+            if(client.chat_out == null);
             System.out.println("IO Error in receiving file in Receiver Init");
             System.out.println(i); 
             errors = i;
@@ -726,7 +789,7 @@ public class ReceiveFileThread extends Thread
                 server.out[client_index].writeUTF("Rejected");
 //                client.out.writeUTF("Rejected");
                 
-                ReceiveFile_TextArea.append(server.socket[client_index].getInetAddress()+ " attempt to send " + server.filename[client_index] + "." + server.ext[client_index] + " of size " + server.filesize[client_index] + " REJECTED.\n");
+                ChatHistory_TextArea.append(server.socket[client_index].getInetAddress()+ " attempt to send " + server.filename[client_index] + "." + server.ext[client_index] + " of size " + server.filesize[client_index] + " REJECTED.\n");
                 System.out.println(server.socket[client_index].getInetAddress() + " attempt to send " + server.filename[client_index] + "." + server.ext[client_index] + " of size " + server.filesize[client_index] + " REJECTED.\n");
                 return;
             }
@@ -735,7 +798,7 @@ public class ReceiveFileThread extends Thread
             server.out[client_index].writeUTF("Accepted");
 //            client.out.writeUTF("Accepted");
 
-            ReceiveFile_TextArea.append(server.socket[client_index].getInetAddress() + " attempt to send " + server.filename[client_index] + "." + server.ext[client_index] + " of size " + server.filesize[client_index] + " ACCEPTED.\n");
+            ChatHistory_TextArea.append(server.socket[client_index].getInetAddress() + " attempt to send " + server.filename[client_index] + "." + server.ext[client_index] + " of size " + server.filesize[client_index] + " ACCEPTED.\n");
             System.out.println(server.socket[client_index].getInetAddress() + " attempt to send " + server.filename[client_index] + "." + server.ext[client_index] + " of size " + server.filesize[client_index] + " ACCEPTED.\n");
 
             File file = new File(DestDir_TextBox.getText());
@@ -761,8 +824,9 @@ public class ReceiveFileThread extends Thread
 //                    fout.write((byte) c);
                     
                     if(server.loaded_size[client_index] + client.READ_BUFFER_SIZE > server.filesize[client_index]) b = new byte[(int)(server.filesize[client_index] - server.loaded_size[client_index])];
-                    
+                    else b = new byte[client.READ_BUFFER_SIZE];
                     server.in[client_index].read(b);
+                    System.out.println("----------FILE---------\n" + new String(b, StandardCharsets.UTF_8));
                     server.loaded_size[client_index] = server.loaded_size[client_index] + b.length;
                     fout.write(b);
 
@@ -770,7 +834,7 @@ public class ReceiveFileThread extends Thread
                     //System.out.println("\t\t\t\t\t\tServer: " + server.loaded_size[client_index] + " - " + c); 
                     // DISPLAY // 
 
-                    if(server.loaded_size[client_index] / display_counter > client.DISPLAY_INTERVAL)
+                    if(server.loaded_size[client_index] / display_counter >= client.DISPLAY_INTERVAL)
                     {
                         display_counter = display_counter + 1;
                         // Display Thread Init
@@ -778,7 +842,7 @@ public class ReceiveFileThread extends Thread
 //                        if(displayThread.isAlive()) displayThread.interrupt();
 //                        displayThread.start();
 
-                        ReceiveFile_TextArea.append(server.filename[client_index] + ": " + server.loaded_size[client_index] + "/" + server.filesize[client_index] + ".\n");
+                        ChatHistory_TextArea.append(server.filename[client_index] + ": " + server.loaded_size[client_index] + "/" + server.filesize[client_index] + ".\n");
                         //System.out.println(server.filename[client_index] + ": " + server.loaded_size[client_index] + "/" + server.filesize[client_index] + ".\n");
                         Receiver_Progress_Main.setValue((int) server.loaded_size[client_index]);
                     }
@@ -787,11 +851,11 @@ public class ReceiveFileThread extends Thread
                 fout.close();
             }
 
-            ReceiveFile_TextArea.append(server.filename[client_index] + "." + server.ext[client_index] + " of size " + server.filesize[client_index] + " received successfully.\n");
+            ChatHistory_TextArea.append(server.filename[client_index] + "." + server.ext[client_index] + " of size " + server.filesize[client_index] + " received successfully.\n");
             System.out.println(server.filename[client_index] + "." + server.ext[client_index] + " of size " + server.filesize[client_index] + " received successfully.\n");
 
             //client.CloseConnection();
-            server.CloseConnection(client_index);
+            server.CloseConnection(client_index, false);
         }
         catch(IOException i) 
         { 
@@ -811,11 +875,38 @@ public class ServerThreadClass extends Thread
 
     public void run()
     {
+        //System.out.println("ServerThreadClass thread started........................");
         Receiver_Progress_Main.setValue(0);
         client_index = server.AcceptClient();
-        server.ReceiveFile_Init(client_index);
-        RejectFile_Button.setEnabled(true);
-        ReceiveFile_Button.setEnabled(true);
+        server.Chat_Init(client_index);
+        boolean stop_connection = false;
+        try
+        {
+            while(!stop_connection)
+            {
+                //System.out.println("Waiting for read for chat_or_file for clientindex: " + client_index);
+                String chat_or_file = server.chat_in[client_index].readUTF();
+                //System.out.println("Read chatorfile as " + chat_or_file);
+                if(chat_or_file.equals("file"))
+                {
+                    server.ReceiveFile_Init(client_index);
+                    RejectFile_Button.setEnabled(true);
+                    ReceiveFile_Button.setEnabled(true);
+                }
+                else 
+                {
+                    String reply = server.Chat_Listen(client_index);
+                    ChatHistory_TextArea.append("\n" + server.socket[client_index].getInetAddress() + ": " + reply);
+                    //Thread charserver_thread = new ChatClientServerThread('s');
+                    //charserver_thread.start();
+                }
+            }
+        }
+        catch(IOException i) 
+        { 
+            System.out.println("IO Error in ServerThreadClass");
+            System.out.println(i); 
+        } 
     } 
 }
 
@@ -838,17 +929,48 @@ public class DisplayProgressThread extends Thread
     {
         if(mode.equals("Receiver"))
         {
-            ReceiveFile_TextArea.append(filename + ": " + loaded_size + "/" + filesize + ".\n");
+            ChatHistory_TextArea.append(filename + ": " + loaded_size + "/" + filesize + ".\n");
             //System.out.println(filename + ": " + loaded_size + "/" + filesize + ".\n");
             Receiver_Progress_Main.setValue((int) loaded_size);
         }
         else if(mode.equals("Sender"))
         {
-            SendFile_TextArea.append(filename + ": " + loaded_size + "/" + filesize + ".\n");
+            ChatHistory_TextArea.append(filename + ": " + loaded_size + "/" + filesize + ".\n");
             System.out.println(filename + ": " + loaded_size + "/" + filesize + ".\n");
             Sender_Progress_Main.setValue((int) loaded_size);
         }
     } 
+}
+
+public class ChatClientServerThread extends Thread
+{
+    char client_or_server;
+    public ChatClientServerThread(char client_or_server_param)
+    {
+        client_or_server = client_or_server_param;
+    }
+    public void run()
+    {
+        if(client_or_server == 'c')
+        {
+//            boolean stop_connecting = false;
+//            while(!stop_connecting)
+//            {
+                client = new Client(IPAddress, sender_port);
+//                if(client != null && !(client.in == null && client.out == null && client.chat_out == null)) stop_connecting = true;
+//            }
+        }
+        else
+        {
+//            boolean stop_receiving = false;
+//            while(!stop_receiving)
+//            {
+//                
+                String reply = server.Chat_Listen(client_index);
+                ChatHistory_TextArea.append(server.socket[client_index].getInetAddress() + ": " + reply);
+//            }
+        }
+    }
 }
     
     int sender_port = 9009;
@@ -881,12 +1003,13 @@ public class DisplayProgressThread extends Thread
     try
     {
         Sender_Progress_Main.setValue(0);
-        client = new Client(IPAddress, sender_port);
+        
         client.SendFile();
         //client.CloseConnection();
     }
     catch(IOException i) 
     { 
+        System.out.println("IO Error in SendFile Button");
         System.out.println(i); 
     } 
     }//GEN-LAST:event_SendFile_ButtonActionPerformed
@@ -938,17 +1061,33 @@ public class DisplayProgressThread extends Thread
     if(changed_server)
     {
         if(server_accepting_thread != null) server_accepting_thread.interrupt();
-        if(server != null) server.CloseConnection(client_index);
+        if(server != null) server.CloseConnection(client_index, true);
         server = new Server(receiver_port);
         server_accepting_thread = new ServerThreadClass();
         server_accepting_thread.start();
+        
+        client = new Client(IPAddress, sender_port);
     }
 
     SendFile_Button.setEnabled(true);
-    
-    // Init Client
-    client = new Client(IPAddress, sender_port);
     }//GEN-LAST:event_UpdatePortIP_ButtonActionPerformed
+
+    private void SendChat_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SendChat_ButtonActionPerformed
+    try
+    {
+        client.chat_out.writeUTF("chat");
+        //System.out.println("Written 'chat' to chat_out");
+        
+        String text_to_send = Chat_TextField.getText();
+        client.chat_out.writeUTF(text_to_send);
+        //System.out.println("Written " + text_to_send + " to chat_out");
+    }
+    catch(IOException i) 
+    { 
+        System.out.println("IO Error in SendChat Button");
+        System.out.println(i); 
+    } 
+    }//GEN-LAST:event_SendChat_ButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -980,7 +1119,7 @@ public class DisplayProgressThread extends Thread
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FileTransfer().setVisible(true);
+                new IPFileMessenger_Backup().setVisible(true);
             }
         });
     }
@@ -988,6 +1127,8 @@ public class DisplayProgressThread extends Thread
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background_Panel;
     private javax.swing.JPanel BasicDetails_Panel;
+    private javax.swing.JTextArea ChatHistory_TextArea;
+    private javax.swing.JTextField Chat_TextField;
     private javax.swing.JLabel DestDir_Label;
     private javax.swing.JTextField DestDir_TextBox;
     private javax.swing.JLabel DestFilename_Label;
@@ -1002,21 +1143,19 @@ public class DisplayProgressThread extends Thread
     private javax.swing.JTextField IPAddr_4_TextBox;
     private javax.swing.JLabel IPAddr_Label;
     private javax.swing.JButton ReceiveFile_Button;
-    private javax.swing.JTextArea ReceiveFile_TextArea;
     private javax.swing.JPanel Receiver_Panel;
     private javax.swing.JLabel Receiver_Port_Label;
     private javax.swing.JTextField Receiver_Port_TextBox;
     private javax.swing.JProgressBar Receiver_Progress_Main;
     private javax.swing.JButton RejectFile_Button;
+    private javax.swing.JButton SendChat_Button;
     private javax.swing.JButton SendFile_Button;
-    private javax.swing.JTextArea SendFile_TextArea;
     private javax.swing.JPanel Sender_Panel;
     private javax.swing.JLabel Sender_Port_Label;
     private javax.swing.JTextField Sender_Port_TextBox;
     private javax.swing.JProgressBar Sender_Progress_Main;
     private javax.swing.JLabel Title_Label;
     private javax.swing.JButton UpdatePortIP_Button;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }
