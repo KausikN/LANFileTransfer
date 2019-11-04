@@ -13,12 +13,12 @@ import java.time.Instant;
  *
  * @author Kausik N
  */
-public class IPFileMessenger extends javax.swing.JFrame {
+public class IPFileMessenger_New extends javax.swing.JFrame {
 
     /**
      * Creates new form Test
      */
-    public IPFileMessenger() {
+    public IPFileMessenger_New() {
         initComponents();
     }
 
@@ -554,11 +554,13 @@ public class Client extends Thread
 //                        System.out.println("waiting for start_ack" + Instant.now());
 //                        String start_ack = in.readUTF();
 //                        System.out.println("start_ack: " + start_ack + " " + Instant.now());
+                        out.writeUTF("s");
+                        System.out.println("written start_ack " + Instant.now());
                         out.write(b);
                         System.out.println("written data " + Instant.now());
-//                        System.out.println("waiting for end_ack" + Instant.now());
-//                        String end_ack = in.readUTF();
-//                        System.out.println("end_ack: " + end_ack + " " + Instant.now());
+                        System.out.println("waiting for end_ack" + Instant.now());
+                        String end_ack = in.readUTF();
+                        System.out.println("end_ack: " + end_ack + " " + Instant.now());
                         // DISPLAY // 
                         //System.out.println("Client: " + loaded_size + " - " + c); 
                         // DISPLAY // 
@@ -800,6 +802,7 @@ public class ReceiveFileThread extends Thread
                 
                 ChatHistory_TextArea.append(server.socket[client_index].getInetAddress()+ " attempt to send " + server.filename[client_index] + "." + server.ext[client_index] + " of size " + server.filesize[client_index] + " REJECTED.\n");
                 System.out.println(server.socket[client_index].getInetAddress() + " attempt to send " + server.filename[client_index] + "." + server.ext[client_index] + " of size " + server.filesize[client_index] + " REJECTED.\n");
+                chat_file_sync = "done";
                 return;
             }
 
@@ -837,12 +840,15 @@ public class ReceiveFileThread extends Thread
                     else b = new byte[client.READ_BUFFER_SIZE];
 //                    server.out[client_index].writeUTF("s"); // START ACK Make Sender wait till receiver is ready to receive
 //                    System.out.println("written start_ack " + Instant.now());
+                    System.out.println("waiting for start_ack " + Instant.now());
+                    String start_ack = server.in[client_index].readUTF(); // START ACK Make Sender wait till receiver is ready to receive
+                    
                     System.out.println("waiting for data " + Instant.now());
                     server.in[client_index].read(b);
                     System.out.println("read data " + Instant.now());
-//                    server.out[client_index].writeUTF("e"); // END ACK Make Sender wait till receiver is ready to receive
-//                    System.out.println("written end_ack " + Instant.now());
-//                    System.out.println("----------DATA - " + b.length + "---------\n" + new String(b, StandardCharsets.UTF_8));
+                    server.out[client_index].writeUTF("e"); // END ACK Make Sender wait till receiver is ready to receive
+                    System.out.println("written end_ack " + Instant.now());
+                    System.out.println("----------DATA - " + b.length + "---------\n" + new String(b, StandardCharsets.UTF_8));
                     server.loaded_size[client_index] = server.loaded_size[client_index] + b.length;
                     fout.write(b);
 
@@ -871,14 +877,15 @@ public class ReceiveFileThread extends Thread
             System.out.println(server.filename[client_index] + "." + server.ext[client_index] + " of size " + server.filesize[client_index] + " received successfully.\n");
 
             //client.CloseConnection();
-            server.CloseConnection(client_index, false);
+            //server.CloseConnection(client_index, false);
         }
         catch(IOException i) 
         { 
             System.out.println("IO Error");
             System.out.println(i); 
             server.errors = i;
-        } 
+        }
+        chat_file_sync = "done";
     }
 }
 
@@ -900,10 +907,11 @@ public class ServerThreadClass extends Thread
         {
             while(!stop_connection)
             {
+                chat_file_sync = "notdone";
                 //System.out.println("Waiting for read for chat_or_file for clientindex: " + client_index);
                 String chat_or_file = server.chat_in[client_index].readUTF();
                 System.out.println("Read chatorfile as " + chat_or_file);
-                if(chat_or_file.equals("file"))
+                if(!chat_or_file.equals("chat"))
                 {
                     server.ReceiveFile_Init(client_index);
                     RejectFile_Button.setEnabled(true);
@@ -916,7 +924,9 @@ public class ServerThreadClass extends Thread
                     ChatHistory_TextArea.append("\n" + server.socket[client_index].getInetAddress() + ": " + reply);
                     //Thread charserver_thread = new ChatClientServerThread('s');
                     //charserver_thread.start();
+                    chat_file_sync = "done";
                 }
+                while(!chat_file_sync.equals("done"));
             }
         }
         catch(IOException i) 
@@ -1001,6 +1011,8 @@ public class ChatClientServerThread extends Thread
     Thread server_accepting_thread = null;
     
     Thread receivefile_thread = null;
+    
+    String chat_file_sync = "";
 
     private void ReceiveFile_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReceiveFile_ButtonActionPerformed
     server.accept_file[client_index] = true;
@@ -1136,7 +1148,7 @@ public class ChatClientServerThread extends Thread
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new IPFileMessenger().setVisible(true);
+                new IPFileMessenger_New().setVisible(true);
             }
         });
     }
