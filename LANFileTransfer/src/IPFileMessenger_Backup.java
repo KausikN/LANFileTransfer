@@ -1,6 +1,7 @@
 import java.net.*; 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.time.Instant;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -416,6 +417,8 @@ public class Client extends Thread
     long loaded_size = 0;
     
     public Exception errors = null;
+    
+    Thread client_sendfile_thread;
   
     // constructor to put ip address and port 
     public Client(String address, int port)
@@ -494,8 +497,9 @@ public class Client extends Thread
         out.writeUTF(filesize + "");
         
         // Start sending within thread
-        Thread t = this;
-        t.start();
+        if(client_sendfile_thread != null && client_sendfile_thread.isAlive()) client_sendfile_thread.interrupt();
+        client_sendfile_thread = client;
+        client_sendfile_thread.start();
     }
     
 
@@ -509,7 +513,7 @@ public class Client extends Thread
 //            Socket acksocket = ackserver.accept();
 //            System.out.println("ACK CONNECTED");
 //            String ack = new DataInputStream(acksocket.getInputStream()).readUTF();
-            String ack = client.in.readUTF();
+            String ack = in.readUTF();
 //            String ack = server.in[client_index].readUTF();
             
             // Disable Buttons
@@ -537,6 +541,7 @@ public class Client extends Thread
 
                     int display_counter = 1;
                     byte[] b = new byte[READ_BUFFER_SIZE];
+                    
                     while(loaded_size < filesize)         //Read byte by byte or by buffer
                     {
 //                        c = (byte) fin.read();
@@ -545,11 +550,20 @@ public class Client extends Thread
                         
                         if(loaded_size + READ_BUFFER_SIZE > filesize) b = new byte[(int)(filesize - loaded_size)];
                         else b = new byte[READ_BUFFER_SIZE];
+//                        System.out.println("B LENGTH: " + b.length);
                         fin.read(b);
                         //System.out.println("File: " + new String(b, StandardCharsets.UTF_8));
                         loaded_size = loaded_size + b.length;
+//                        System.out.println("waiting for start_ack" + Instant.now());
+//                        String start_ack = in.readUTF();
+//                        System.out.println("start_ack: " + start_ack + " " + Instant.now());
+                        out.writeUTF("s");
+                        System.out.println("written start_ack " + Instant.now());
                         out.write(b);
-
+                        System.out.println("written data " + Instant.now());
+                        System.out.println("waiting for end_ack" + Instant.now());
+                        String end_ack = in.readUTF();
+                        System.out.println("end_ack: " + end_ack + " " + Instant.now());
                         // DISPLAY // 
                         //System.out.println("Client: " + loaded_size + " - " + c); 
                         // DISPLAY // 
@@ -592,6 +606,8 @@ public class Client extends Thread
         //CloseConnection();
     }
 }
+
+
 
 public class Server
 { 
@@ -654,7 +670,7 @@ public class Server
             no_of_clients = no_of_clients + 1;
             client_availablity[index] = false;
             
-            if(server_accepting_thread != null) server_accepting_thread.interrupt();
+            //if(server_accepting_thread != null) server_accepting_thread.interrupt();
 
             server_accepting_thread = new ServerThreadClass();
             server_accepting_thread.start();
@@ -717,9 +733,9 @@ public class Server
     {
         try
         {
-            //System.out.println("Waiting for read at ChatListen fro clientindex: " + client_index);
+            System.out.println("Waiting for read at ChatListen fro clientindex: " + client_index);
             String read_text = chat_in[client_index].readUTF();
-            //System.out.println("Read " + read_text + " from chat_in");
+            System.out.println("Read " + read_text + " from chat_in");
             return read_text;
         }
         catch(IOException i) 
@@ -791,78 +807,95 @@ public class ReceiveFileThread extends Thread
                 
                 ChatHistory_TextArea.append(server.socket[client_index].getInetAddress()+ " attempt to send " + server.filename[client_index] + "." + server.ext[client_index] + " of size " + server.filesize[client_index] + " REJECTED.\n");
                 System.out.println(server.socket[client_index].getInetAddress() + " attempt to send " + server.filename[client_index] + "." + server.ext[client_index] + " of size " + server.filesize[client_index] + " REJECTED.\n");
-                return;
+                chat_file_sync = "done";
             }
-
-//            new DataOutputStream(acksocket.getOutputStream()).writeUTF("Accepted");
-            server.out[client_index].writeUTF("Accepted");
-//            client.out.writeUTF("Accepted");
-
-            ChatHistory_TextArea.append(server.socket[client_index].getInetAddress() + " attempt to send " + server.filename[client_index] + "." + server.ext[client_index] + " of size " + server.filesize[client_index] + " ACCEPTED.\n");
-            System.out.println(server.socket[client_index].getInetAddress() + " attempt to send " + server.filename[client_index] + "." + server.ext[client_index] + " of size " + server.filesize[client_index] + " ACCEPTED.\n");
-
-            File file = new File(DestDir_TextBox.getText());
-            file = new File(file, DestFilename_TextBox.getText() + "." + server.ext[client_index]);
-            file.createNewFile();
             
-            try(
-                    FileOutputStream fout = new FileOutputStream(file);
-            )
+            else 
             {
-                server.loaded_size[client_index] = 0;
-                Receiver_Progress_Main.setValue(0);
-                Receiver_Progress_Main.setMaximum((int)server.filesize[client_index]);
+                
+    //            new DataOutputStream(acksocket.getOutputStream()).writeUTF("Accepted");
+                server.out[client_index].writeUTF("Accepted");
+    //            client.out.writeUTF("Accepted");
 
-                int display_counter = 1;
-                byte[] b = new byte[client.READ_BUFFER_SIZE];
-                while (((server.loaded_size[client_index] < server.filesize[client_index]) && true))
-                { 
+                ChatHistory_TextArea.append(server.socket[client_index].getInetAddress() + " attempt to send " + server.filename[client_index] + "." + server.ext[client_index] + " of size " + server.filesize[client_index] + " ACCEPTED.\n");
+                System.out.println(server.socket[client_index].getInetAddress() + " attempt to send " + server.filename[client_index] + "." + server.ext[client_index] + " of size " + server.filesize[client_index] + " ACCEPTED.\n");
 
-                    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//                    c = server.in[client_index].read();
-//                    server.loaded_size[client_index] = server.loaded_size[client_index] + 1;
-//                    fout.write((byte) c);
-                    
-                    if(server.loaded_size[client_index] + client.READ_BUFFER_SIZE > server.filesize[client_index]) b = new byte[(int)(server.filesize[client_index] - server.loaded_size[client_index])];
-                    else b = new byte[client.READ_BUFFER_SIZE];
-                    server.in[client_index].read(b);
-                    System.out.println("----------FILE---------\n" + new String(b, StandardCharsets.UTF_8));
-                    server.loaded_size[client_index] = server.loaded_size[client_index] + b.length;
-                    fout.write(b);
+                File file = new File(DestDir_TextBox.getText());
+                file = new File(file, DestFilename_TextBox.getText() + "." + server.ext[client_index]);
+                file.createNewFile();
 
-                    // DISPLAY  
-                    //System.out.println("\t\t\t\t\t\tServer: " + server.loaded_size[client_index] + " - " + c); 
-                    // DISPLAY // 
+                try(
+                        FileOutputStream fout = new FileOutputStream(file);
+                )
+                {
+                    server.loaded_size[client_index] = 0;
+                    Receiver_Progress_Main.setValue(0);
+                    Receiver_Progress_Main.setMaximum((int)server.filesize[client_index]);
 
-                    if(server.loaded_size[client_index] / display_counter >= client.DISPLAY_INTERVAL)
-                    {
-                        display_counter = display_counter + 1;
-                        // Display Thread Init
-//                        Thread displayThread = new DisplayProgressThread("Receiver", server.filename[client_index], server.filesize[client_index], server.loaded_size[client_index]);
-//                        if(displayThread.isAlive()) displayThread.interrupt();
-//                        displayThread.start();
+                    int display_counter = 1;
+                    byte[] b = new byte[client.READ_BUFFER_SIZE];
 
-                        ChatHistory_TextArea.append(server.filename[client_index] + ": " + server.loaded_size[client_index] + "/" + server.filesize[client_index] + ".\n");
-                        //System.out.println(server.filename[client_index] + ": " + server.loaded_size[client_index] + "/" + server.filesize[client_index] + ".\n");
-                        Receiver_Progress_Main.setValue((int) server.loaded_size[client_index]);
-                    }
-                } 
-                System.out.println("Server Over!");
-                fout.close();
+                    while (((server.loaded_size[client_index] < server.filesize[client_index]) && true))
+                    { 
+
+                        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //                    c = server.in[client_index].read();
+    //                    server.loaded_size[client_index] = server.loaded_size[client_index] + 1;
+    //                    fout.write((byte) c);
+
+                        if(server.loaded_size[client_index] + client.READ_BUFFER_SIZE > server.filesize[client_index]) 
+                            b = new byte[(int)(server.filesize[client_index] - server.loaded_size[client_index])];
+                        else b = new byte[client.READ_BUFFER_SIZE];
+    //                    server.out[client_index].writeUTF("s"); // START ACK Make Sender wait till receiver is ready to receive
+    //                    System.out.println("written start_ack " + Instant.now());
+                        System.out.println("waiting for start_ack " + Instant.now());
+                        String start_ack = server.in[client_index].readUTF(); // START ACK Make Sender wait till receiver is ready to receive
+
+                        System.out.println("waiting for data " + Instant.now());
+                        server.in[client_index].read(b);
+                        System.out.println("read data " + Instant.now());
+                        server.out[client_index].writeUTF("e"); // END ACK Make Sender wait till receiver is ready to receive
+                        System.out.println("written end_ack " + Instant.now());
+                        System.out.println("----------DATA - " + b.length + "---------\n" + new String(b, StandardCharsets.UTF_8));
+                        server.loaded_size[client_index] = server.loaded_size[client_index] + b.length;
+                        fout.write(b);
+
+                        // DISPLAY  
+                        //System.out.println("\t\t\t\t\t\tServer: " + server.loaded_size[client_index] + " - " + c); 
+                        // DISPLAY // 
+
+                        if(server.loaded_size[client_index] / display_counter >= client.DISPLAY_INTERVAL)
+                        {
+                            display_counter = display_counter + 1;
+                            // Display Thread Init
+    //                        Thread displayThread = new DisplayProgressThread("Receiver", server.filename[client_index], server.filesize[client_index], server.loaded_size[client_index]);
+    //                        if(displayThread.isAlive()) displayThread.interrupt();
+    //                        displayThread.start();
+
+                            ChatHistory_TextArea.append(server.filename[client_index] + ": " + server.loaded_size[client_index] + "/" + server.filesize[client_index] + ".\n");
+                            //System.out.println(server.filename[client_index] + ": " + server.loaded_size[client_index] + "/" + server.filesize[client_index] + ".\n");
+                            Receiver_Progress_Main.setValue((int) server.loaded_size[client_index]);
+                        }
+                    } 
+                    System.out.println("Server Over!");
+                    fout.close();
+                }
+
+                ChatHistory_TextArea.append(server.filename[client_index] + "." + server.ext[client_index] + " of size " + server.filesize[client_index] + " received successfully.\n");
+                System.out.println(server.filename[client_index] + "." + server.ext[client_index] + " of size " + server.filesize[client_index] + " received successfully.\n");
+
+                //client.CloseConnection();
+                //server.CloseConnection(client_index, false);
+                
             }
-
-            ChatHistory_TextArea.append(server.filename[client_index] + "." + server.ext[client_index] + " of size " + server.filesize[client_index] + " received successfully.\n");
-            System.out.println(server.filename[client_index] + "." + server.ext[client_index] + " of size " + server.filesize[client_index] + " received successfully.\n");
-
-            //client.CloseConnection();
-            server.CloseConnection(client_index, false);
+            chat_file_sync = "done";
         }
         catch(IOException i) 
         { 
             System.out.println("IO Error");
             System.out.println(i); 
             server.errors = i;
-        } 
+        }
     }
 }
 
@@ -884,10 +917,11 @@ public class ServerThreadClass extends Thread
         {
             while(!stop_connection)
             {
+                chat_file_sync = "notdone";
                 //System.out.println("Waiting for read for chat_or_file for clientindex: " + client_index);
                 String chat_or_file = server.chat_in[client_index].readUTF();
-                //System.out.println("Read chatorfile as " + chat_or_file);
-                if(chat_or_file.equals("file"))
+                System.out.println("Read chatorfile as " + chat_or_file);
+                if(!chat_or_file.equals("chat"))
                 {
                     server.ReceiveFile_Init(client_index);
                     RejectFile_Button.setEnabled(true);
@@ -896,10 +930,13 @@ public class ServerThreadClass extends Thread
                 else 
                 {
                     String reply = server.Chat_Listen(client_index);
+                    System.out.println("Reply got from chat: " + reply);
                     ChatHistory_TextArea.append("\n" + server.socket[client_index].getInetAddress() + ": " + reply);
                     //Thread charserver_thread = new ChatClientServerThread('s');
                     //charserver_thread.start();
+                    chat_file_sync = "done";
                 }
+                while(!chat_file_sync.equals("done"));
             }
         }
         catch(IOException i) 
@@ -984,6 +1021,8 @@ public class ChatClientServerThread extends Thread
     Thread server_accepting_thread = null;
     
     Thread receivefile_thread = null;
+    
+    String chat_file_sync = "";
 
     private void ReceiveFile_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReceiveFile_ButtonActionPerformed
     server.accept_file[client_index] = true;
