@@ -171,7 +171,7 @@ public class IPFileMessenger_New extends javax.swing.JFrame {
                     .addComponent(Receiver_Port_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Receiver_Port_TextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(UpdatePortIP_Button, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addComponent(UpdatePortIP_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(6, 6, 6))
         );
 
@@ -214,7 +214,7 @@ public class IPFileMessenger_New extends javax.swing.JFrame {
             .addGroup(Sender_PanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(Sender_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Chat_TextField)
                     .addComponent(SendChat_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -234,7 +234,7 @@ public class IPFileMessenger_New extends javax.swing.JFrame {
         DestDir_Label.setText("Recv Directory");
         DestDir_Label.setOpaque(true);
         Receiver_Panel.add(DestDir_Label);
-        DestDir_Label.setBounds(30, 200, 139, 32);
+        DestDir_Label.setBounds(30, 150, 139, 32);
 
         DestFilename_Label.setBackground(new java.awt.Color(128, 131, 223));
         DestFilename_Label.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -243,15 +243,15 @@ public class IPFileMessenger_New extends javax.swing.JFrame {
         DestFilename_Label.setText("Recv Filename");
         DestFilename_Label.setOpaque(true);
         Receiver_Panel.add(DestFilename_Label);
-        DestFilename_Label.setBounds(17, 278, 135, 34);
+        DestFilename_Label.setBounds(30, 200, 135, 40);
 
         DestDir_TextBox.setText("C:\\GitHub Codes and Projects\\Networking Files\\LANFileTransfer");
         Receiver_Panel.add(DestDir_TextBox);
-        DestDir_TextBox.setBounds(180, 201, 372, 40);
+        DestDir_TextBox.setBounds(180, 150, 372, 40);
 
         DestFilename_TextBox.setText("b");
         Receiver_Panel.add(DestFilename_TextBox);
-        DestFilename_TextBox.setBounds(180, 280, 372, 40);
+        DestFilename_TextBox.setBounds(180, 210, 372, 30);
 
         RejectFile_Button.setBackground(new java.awt.Color(128, 131, 223));
         RejectFile_Button.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -264,9 +264,9 @@ public class IPFileMessenger_New extends javax.swing.JFrame {
             }
         });
         Receiver_Panel.add(RejectFile_Button);
-        RejectFile_Button.setBounds(796, 200, 190, 40);
+        RejectFile_Button.setBounds(790, 150, 190, 40);
         Receiver_Panel.add(Receiver_Progress_Main);
-        Receiver_Progress_Main.setBounds(580, 270, 419, 46);
+        Receiver_Progress_Main.setBounds(580, 206, 419, 40);
 
         Filename_TextBox.setText("FileTransfer_Application.c");
         Filename_TextBox.addActionListener(new java.awt.event.ActionListener() {
@@ -275,7 +275,7 @@ public class IPFileMessenger_New extends javax.swing.JFrame {
             }
         });
         Receiver_Panel.add(Filename_TextBox);
-        Filename_TextBox.setBounds(180, 110, 372, 40);
+        Filename_TextBox.setBounds(180, 90, 372, 40);
 
         Directory_TextBox.setText("C:\\GitHub Codes and Projects\\Networking Files\\LANFileTransfer");
         Directory_TextBox.addActionListener(new java.awt.event.ActionListener() {
@@ -302,7 +302,7 @@ public class IPFileMessenger_New extends javax.swing.JFrame {
         Filename_Label.setText("Send Filename");
         Filename_Label.setOpaque(true);
         Receiver_Panel.add(Filename_Label);
-        Filename_Label.setBounds(31, 116, 135, 32);
+        Filename_Label.setBounds(30, 100, 135, 32);
 
         SendFile_Button.setBackground(new java.awt.Color(51, 0, 153));
         SendFile_Button.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -317,7 +317,7 @@ public class IPFileMessenger_New extends javax.swing.JFrame {
         Receiver_Panel.add(SendFile_Button);
         SendFile_Button.setBounds(584, 31, 410, 40);
         Receiver_Panel.add(Sender_Progress_Main);
-        Sender_Progress_Main.setBounds(580, 110, 411, 40);
+        Sender_Progress_Main.setBounds(580, 90, 411, 40);
 
         ReceiveFile_Button.setBackground(new java.awt.Color(128, 131, 223));
         ReceiveFile_Button.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -330,7 +330,7 @@ public class IPFileMessenger_New extends javax.swing.JFrame {
             }
         });
         Receiver_Panel.add(ReceiveFile_Button);
-        ReceiveFile_Button.setBounds(580, 200, 200, 40);
+        ReceiveFile_Button.setBounds(580, 150, 200, 40);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Logo.png"))); // NOI18N
@@ -363,21 +363,19 @@ public class IPFileMessenger_New extends javax.swing.JFrame {
             .addGroup(Background_PanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(Background_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Background_PanelLayout.createSequentialGroup()
-                        .addComponent(BasicDetails_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 2, Short.MAX_VALUE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Background_PanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(Title_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36)))
+                        .addGap(36, 36, 36))
+                    .addComponent(BasicDetails_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Name_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Receiver_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
+                .addComponent(Receiver_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Sender_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(96, 96, 96))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -393,7 +391,7 @@ public class IPFileMessenger_New extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(Background_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 9, Short.MAX_VALUE))
         );
 
         pack();
@@ -525,20 +523,8 @@ public class SendFileThread extends Thread
     {
         try
         {
-            //System.out.println("DEBUG: SENDER HI: " + client_index + " -- " + socket.getInetAddress()+ ", " + socket.getPort());
-            
-//            ServerSocket ackserver = new ServerSocket(9008);
-//            Socket acksocket = ackserver.accept();
-//            System.out.println("ACK CONNECTED");
-//            String ack = new DataInputStream(acksocket.getInputStream()).readUTF();
+
             String ack = client.in.readUTF();
-//            String ack = server.in[client_index].readUTF();
-            
-            // Disable Buttons
-//            RejectFile_Button.setEnabled(false);
-//            ReceiveFile_Button.setEnabled(false);
-            
-            //System.out.println("DEBUG: SENDER ACK: " + ack);
 
             if(ack.equals("Accepted"))
             {
@@ -562,9 +548,6 @@ public class SendFileThread extends Thread
                     
                     while(client.loaded_size < client.filesize)         //Read byte by byte or by buffer
                     {
-//                        c = (byte) fin.read();
-//                        loaded_size = loaded_size + 1;
-//                        out.write(c);
                         
                         if(client.loaded_size + client.READ_BUFFER_SIZE > client.filesize) b = new byte[(int)(client.filesize - client.loaded_size)];
                         else b = new byte[client.READ_BUFFER_SIZE];
@@ -590,11 +573,6 @@ public class SendFileThread extends Thread
                         if(client.loaded_size / display_counter >= client.DISPLAY_INTERVAL)
                         {
                             display_counter = display_counter + 1;
-                            // Display Thread
-//                            Thread displayThread = new DisplayProgressThread("Sender", filename, filesize, loaded_size);
-//                            if(displayThread.isAlive()) displayThread.interrupt();
-//                            displayThread.start();
-
                             //if(loaded_size > filesize) loaded_size = filesize;
                             
                             ChatHistory_TextArea.append(client.filename + ": " + client.loaded_size + "/" + client.filesize + ".\n");
@@ -780,12 +758,8 @@ public class Server
             ext[client_index] = in[client_index].readUTF(); 
             filesize[client_index] = Integer.parseInt(in[client_index].readUTF()); 
             
-            String COLOR_RESET = "\u001B[0m";
-            String COLOR_BG_BLUE = "\u001B[44m";
-            String COLOR_FG_RED = "\u001B[31m";
-            
             ChatHistory_TextArea.append("\n" + clientname[client_index] + " from " + socket[client_index].getInetAddress() + " wants to send " + filename[client_index] + "." + ext[client_index] + " of size " + filesize[client_index] + "...\n");
-            System.out.println(COLOR_FG_RED + clientname[client_index] + COLOR_RESET + " from " + socket[client_index].getInetAddress() + " wants to send " + filename[client_index] + "." + ext[client_index] + " of size " + filesize[client_index] + "...");
+            System.out.println(clientname[client_index] + " from " + socket[client_index].getInetAddress() + " wants to send " + filename[client_index] + "." + ext[client_index] + " of size " + filesize[client_index] + "...");
             
             Receiver_Progress_Main.setValue(0);
         }
@@ -820,8 +794,6 @@ public class ReceiveFileThread extends Thread
     {
         try
         {
-            //System.out.println("DEBUG: RECEIVER HI: " + client_index + " -- " + server.socket[client_index].getInetAddress()+ ", " + server.socket[client_index].getPort());
-            
 //            Socket acksocket = new Socket("192.168.56.1", 9008);
             
             if(!server.accept_file[client_index])
@@ -864,10 +836,6 @@ public class ReceiveFileThread extends Thread
                     { 
 
                         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //                    c = server.in[client_index].read();
-    //                    server.loaded_size[client_index] = server.loaded_size[client_index] + 1;
-    //                    fout.write((byte) c);
-
                         if(server.loaded_size[client_index] + client.READ_BUFFER_SIZE > server.filesize[client_index]) 
                             b = new byte[(int)(server.filesize[client_index] - server.loaded_size[client_index])];
                         else b = new byte[client.READ_BUFFER_SIZE];
@@ -892,10 +860,6 @@ public class ReceiveFileThread extends Thread
                         if(server.loaded_size[client_index] / display_counter >= client.DISPLAY_INTERVAL)
                         {
                             display_counter = display_counter + 1;
-                            // Display Thread Init
-    //                        Thread displayThread = new DisplayProgressThread("Receiver", server.filename[client_index], server.filesize[client_index], server.loaded_size[client_index]);
-    //                        if(displayThread.isAlive()) displayThread.interrupt();
-    //                        displayThread.start();
 
                             ChatHistory_TextArea.append(server.filename[client_index] + ": " + server.loaded_size[client_index] + "/" + server.filesize[client_index] + ".\n");
                             //System.out.println(server.filename[client_index] + ": " + server.loaded_size[client_index] + "/" + server.filesize[client_index] + ".\n");
@@ -1060,6 +1024,8 @@ public class ChatClientServerThread extends Thread
     server.ReceiveFile(client_index);
     RejectFile_Button.setEnabled(false);
     ReceiveFile_Button.setEnabled(false);
+    
+    
     }//GEN-LAST:event_ReceiveFile_ButtonActionPerformed
 
     private void SendFile_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SendFile_ButtonActionPerformed
@@ -1096,6 +1062,8 @@ public class ChatClientServerThread extends Thread
     Receiver_Progress_Main.setMinimum(0);
     
     Name_Label.setText("Hello " + name + "!");
+    
+    RejectFile_Button.setVisible(false);
     }//GEN-LAST:event_formWindowOpened
 
     private void RejectFile_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RejectFile_ButtonActionPerformed
