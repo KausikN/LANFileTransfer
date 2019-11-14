@@ -54,7 +54,6 @@ public class IPFileMessenger_New extends javax.swing.JFrame {
         DestFilename_Label = new javax.swing.JLabel();
         DestDir_TextBox = new javax.swing.JTextField();
         DestFilename_TextBox = new javax.swing.JTextField();
-        ReceiveFile_Button = new javax.swing.JButton();
         RejectFile_Button = new javax.swing.JButton();
         Receiver_Progress_Main = new javax.swing.JProgressBar();
         Filename_TextBox = new javax.swing.JTextField();
@@ -63,6 +62,9 @@ public class IPFileMessenger_New extends javax.swing.JFrame {
         Filename_Label = new javax.swing.JLabel();
         SendFile_Button = new javax.swing.JButton();
         Sender_Progress_Main = new javax.swing.JProgressBar();
+        ReceiveFile_Button = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        Name_Label = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -71,19 +73,20 @@ public class IPFileMessenger_New extends javax.swing.JFrame {
             }
         });
 
-        Background_Panel.setBackground(new java.awt.Color(0, 0, 0));
+        Background_Panel.setBackground(new java.awt.Color(128, 131, 223));
 
-        Title_Label.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
-        Title_Label.setForeground(new java.awt.Color(0, 255, 204));
+        Title_Label.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        Title_Label.setForeground(new java.awt.Color(255, 255, 255));
         Title_Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Title_Label.setText("LAN FILE TRANSFER");
 
-        BasicDetails_Panel.setBackground(new java.awt.Color(0, 0, 0));
-        BasicDetails_Panel.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 204, 204)));
-        BasicDetails_Panel.setForeground(new java.awt.Color(51, 255, 255));
+        BasicDetails_Panel.setBackground(new java.awt.Color(128, 131, 223));
+        BasicDetails_Panel.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
+        BasicDetails_Panel.setForeground(new java.awt.Color(255, 255, 255));
 
-        IPAddr_Label.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        IPAddr_Label.setForeground(new java.awt.Color(0, 255, 204));
+        IPAddr_Label.setBackground(new java.awt.Color(177, 183, 238));
+        IPAddr_Label.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        IPAddr_Label.setForeground(new java.awt.Color(255, 255, 255));
         IPAddr_Label.setText("IP Address");
 
         IPAddr_1_TextBox.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -98,15 +101,15 @@ public class IPFileMessenger_New extends javax.swing.JFrame {
         IPAddr_4_TextBox.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         IPAddr_4_TextBox.setText("1");
 
-        Sender_Port_Label.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Sender_Port_Label.setForeground(new java.awt.Color(0, 255, 204));
+        Sender_Port_Label.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        Sender_Port_Label.setForeground(new java.awt.Color(255, 255, 255));
         Sender_Port_Label.setText("Send to Port");
 
         Sender_Port_TextBox.setText("9009");
 
-        UpdatePortIP_Button.setBackground(new java.awt.Color(0, 0, 0));
+        UpdatePortIP_Button.setBackground(new java.awt.Color(51, 0, 153));
         UpdatePortIP_Button.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        UpdatePortIP_Button.setForeground(new java.awt.Color(0, 255, 204));
+        UpdatePortIP_Button.setForeground(new java.awt.Color(255, 255, 255));
         UpdatePortIP_Button.setText("Save");
         UpdatePortIP_Button.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 204, 204)));
         UpdatePortIP_Button.addActionListener(new java.awt.event.ActionListener() {
@@ -115,8 +118,8 @@ public class IPFileMessenger_New extends javax.swing.JFrame {
             }
         });
 
-        Receiver_Port_Label.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Receiver_Port_Label.setForeground(new java.awt.Color(0, 255, 204));
+        Receiver_Port_Label.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        Receiver_Port_Label.setForeground(new java.awt.Color(255, 255, 255));
         Receiver_Port_Label.setText("Receiver Port");
 
         Receiver_Port_TextBox.setText("9009");
@@ -128,28 +131,26 @@ public class IPFileMessenger_New extends javax.swing.JFrame {
             .addGroup(BasicDetails_PanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(BasicDetails_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(BasicDetails_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(Sender_Port_Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(IPAddr_Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(Receiver_Port_Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(BasicDetails_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Receiver_Port_Label, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
                     .addGroup(BasicDetails_PanelLayout.createSequentialGroup()
                         .addGroup(BasicDetails_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(UpdatePortIP_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(BasicDetails_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(BasicDetails_PanelLayout.createSequentialGroup()
-                                    .addComponent(IPAddr_1_TextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(IPAddr_2_TextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(IPAddr_3_TextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(IPAddr_4_TextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(Sender_Port_TextBox)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(Receiver_Port_TextBox))
-                .addContainerGap())
+                            .addComponent(Sender_Port_Label)
+                            .addComponent(IPAddr_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(BasicDetails_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(BasicDetails_PanelLayout.createSequentialGroup()
+                        .addComponent(IPAddr_1_TextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(IPAddr_2_TextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(IPAddr_3_TextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(IPAddr_4_TextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Sender_Port_TextBox)
+                    .addComponent(Receiver_Port_TextBox)
+                    .addComponent(UpdatePortIP_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         BasicDetails_PanelLayout.setVerticalGroup(
             BasicDetails_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,21 +170,25 @@ public class IPFileMessenger_New extends javax.swing.JFrame {
                 .addGroup(BasicDetails_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Receiver_Port_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Receiver_Port_TextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addComponent(UpdatePortIP_Button)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(UpdatePortIP_Button, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addGap(6, 6, 6))
         );
 
-        Sender_Panel.setBackground(new java.awt.Color(0, 0, 0));
-        Sender_Panel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 204, 204)), "Chat", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 204, 204))); // NOI18N
+        Sender_Panel.setBackground(new java.awt.Color(128, 131, 223));
+        Sender_Panel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)), "Chat", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(255, 255, 255))); // NOI18N
 
         ChatHistory_TextArea.setEditable(false);
         ChatHistory_TextArea.setColumns(20);
         ChatHistory_TextArea.setRows(5);
         jScrollPane2.setViewportView(ChatHistory_TextArea);
 
+        Chat_TextField.setText("Type your message here...");
+
+        SendChat_Button.setBackground(new java.awt.Color(128, 131, 223));
         SendChat_Button.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
-        SendChat_Button.setText(">");
+        SendChat_Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/send_file.png"))); // NOI18N
+        SendChat_Button.setOpaque(false);
         SendChat_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SendChat_ButtonActionPerformed(evt);
@@ -196,55 +201,61 @@ public class IPFileMessenger_New extends javax.swing.JFrame {
             Sender_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Sender_PanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(Sender_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
+                .addGroup(Sender_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(Sender_PanelLayout.createSequentialGroup()
-                        .addComponent(Chat_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 914, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(SendChat_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(Chat_TextField, javax.swing.GroupLayout.DEFAULT_SIZE, 914, Short.MAX_VALUE)
+                        .addGap(26, 26, 26)
+                        .addComponent(SendChat_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         Sender_PanelLayout.setVerticalGroup(
             Sender_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Sender_PanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(33, 33, 33)
                 .addGroup(Sender_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Chat_TextField, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(Chat_TextField)
                     .addComponent(SendChat_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
-        Receiver_Panel.setBackground(new java.awt.Color(0, 0, 0));
-        Receiver_Panel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 204, 204)), "File Transfer", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(0, 204, 204))); // NOI18N
+        Receiver_Panel.setBackground(new java.awt.Color(128, 131, 223));
+        Receiver_Panel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)), "File Transfer", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(255, 255, 255))); // NOI18N
+        Receiver_Panel.setForeground(new java.awt.Color(128, 131, 223));
+        Receiver_Panel.setToolTipText("");
+        Receiver_Panel.setLayout(null);
 
-        DestDir_Label.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        DestDir_Label.setForeground(new java.awt.Color(0, 255, 204));
+        DestDir_Label.setBackground(new java.awt.Color(128, 131, 223));
+        DestDir_Label.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        DestDir_Label.setForeground(new java.awt.Color(255, 255, 255));
+        DestDir_Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         DestDir_Label.setText("Recv Directory");
+        DestDir_Label.setOpaque(true);
+        Receiver_Panel.add(DestDir_Label);
+        DestDir_Label.setBounds(30, 200, 139, 32);
 
-        DestFilename_Label.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        DestFilename_Label.setForeground(new java.awt.Color(0, 255, 204));
+        DestFilename_Label.setBackground(new java.awt.Color(128, 131, 223));
+        DestFilename_Label.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        DestFilename_Label.setForeground(new java.awt.Color(255, 255, 255));
+        DestFilename_Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         DestFilename_Label.setText("Recv Filename");
+        DestFilename_Label.setOpaque(true);
+        Receiver_Panel.add(DestFilename_Label);
+        DestFilename_Label.setBounds(17, 278, 135, 34);
 
         DestDir_TextBox.setText("C:\\GitHub Codes and Projects\\Networking Files\\LANFileTransfer");
+        Receiver_Panel.add(DestDir_TextBox);
+        DestDir_TextBox.setBounds(180, 201, 372, 40);
 
         DestFilename_TextBox.setText("b");
+        Receiver_Panel.add(DestFilename_TextBox);
+        DestFilename_TextBox.setBounds(180, 280, 372, 40);
 
-        ReceiveFile_Button.setBackground(new java.awt.Color(0, 0, 0));
-        ReceiveFile_Button.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        ReceiveFile_Button.setForeground(new java.awt.Color(0, 255, 204));
-        ReceiveFile_Button.setText("Receive File");
-        ReceiveFile_Button.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 204, 204)));
-        ReceiveFile_Button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ReceiveFile_ButtonActionPerformed(evt);
-            }
-        });
-
-        RejectFile_Button.setBackground(new java.awt.Color(0, 0, 0));
+        RejectFile_Button.setBackground(new java.awt.Color(128, 131, 223));
         RejectFile_Button.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        RejectFile_Button.setForeground(new java.awt.Color(0, 255, 204));
+        RejectFile_Button.setForeground(new java.awt.Color(255, 255, 255));
         RejectFile_Button.setText("Reject File");
         RejectFile_Button.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 204, 204)));
         RejectFile_Button.addActionListener(new java.awt.event.ActionListener() {
@@ -252,22 +263,50 @@ public class IPFileMessenger_New extends javax.swing.JFrame {
                 RejectFile_ButtonActionPerformed(evt);
             }
         });
+        Receiver_Panel.add(RejectFile_Button);
+        RejectFile_Button.setBounds(796, 200, 190, 40);
+        Receiver_Panel.add(Receiver_Progress_Main);
+        Receiver_Progress_Main.setBounds(580, 270, 419, 46);
 
         Filename_TextBox.setText("FileTransfer_Application.c");
+        Filename_TextBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Filename_TextBoxActionPerformed(evt);
+            }
+        });
+        Receiver_Panel.add(Filename_TextBox);
+        Filename_TextBox.setBounds(180, 110, 372, 40);
 
         Directory_TextBox.setText("C:\\GitHub Codes and Projects\\Networking Files\\LANFileTransfer");
+        Directory_TextBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Directory_TextBoxActionPerformed(evt);
+            }
+        });
+        Receiver_Panel.add(Directory_TextBox);
+        Directory_TextBox.setBounds(180, 31, 372, 40);
 
-        Directory_Label.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        Directory_Label.setForeground(new java.awt.Color(0, 255, 204));
+        Directory_Label.setBackground(new java.awt.Color(128, 131, 223));
+        Directory_Label.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        Directory_Label.setForeground(new java.awt.Color(255, 255, 255));
+        Directory_Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Directory_Label.setText("Send Directory");
+        Directory_Label.setOpaque(true);
+        Receiver_Panel.add(Directory_Label);
+        Directory_Label.setBounds(28, 31, 139, 32);
 
-        Filename_Label.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        Filename_Label.setForeground(new java.awt.Color(0, 255, 204));
+        Filename_Label.setBackground(new java.awt.Color(128, 131, 223));
+        Filename_Label.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        Filename_Label.setForeground(new java.awt.Color(255, 255, 255));
+        Filename_Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Filename_Label.setText("Send Filename");
+        Filename_Label.setOpaque(true);
+        Receiver_Panel.add(Filename_Label);
+        Filename_Label.setBounds(31, 116, 135, 32);
 
-        SendFile_Button.setBackground(new java.awt.Color(0, 0, 0));
+        SendFile_Button.setBackground(new java.awt.Color(51, 0, 153));
         SendFile_Button.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        SendFile_Button.setForeground(new java.awt.Color(0, 255, 204));
+        SendFile_Button.setForeground(new java.awt.Color(255, 255, 255));
         SendFile_Button.setText("Send File");
         SendFile_Button.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 204, 204)));
         SendFile_Button.addActionListener(new java.awt.event.ActionListener() {
@@ -275,95 +314,48 @@ public class IPFileMessenger_New extends javax.swing.JFrame {
                 SendFile_ButtonActionPerformed(evt);
             }
         });
+        Receiver_Panel.add(SendFile_Button);
+        SendFile_Button.setBounds(584, 31, 410, 40);
+        Receiver_Panel.add(Sender_Progress_Main);
+        Sender_Progress_Main.setBounds(580, 110, 411, 40);
 
-        javax.swing.GroupLayout Receiver_PanelLayout = new javax.swing.GroupLayout(Receiver_Panel);
-        Receiver_Panel.setLayout(Receiver_PanelLayout);
-        Receiver_PanelLayout.setHorizontalGroup(
-            Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Receiver_PanelLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Directory_Label)
-                    .addComponent(Filename_Label))
-                .addGap(35, 35, 35)
-                .addGroup(Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Filename_TextBox)
-                    .addComponent(Directory_TextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Receiver_Progress_Main, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
-                    .addGroup(Receiver_PanelLayout.createSequentialGroup()
-                        .addComponent(SendFile_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(Sender_Progress_Main, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(Receiver_PanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(DestDir_Label)
-                    .addComponent(DestFilename_Label))
-                .addGap(37, 37, 37)
-                .addGroup(Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(DestFilename_TextBox, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
-                    .addComponent(DestDir_TextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(RejectFile_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ReceiveFile_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        Receiver_PanelLayout.setVerticalGroup(
-            Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Receiver_PanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(Receiver_PanelLayout.createSequentialGroup()
-                        .addComponent(SendFile_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(Sender_Progress_Main, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(Receiver_PanelLayout.createSequentialGroup()
-                        .addGroup(Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Directory_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Directory_TextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Filename_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Filename_TextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(45, 45, 45)
-                .addGroup(Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Receiver_PanelLayout.createSequentialGroup()
-                        .addGroup(Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(DestDir_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(DestDir_TextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(DestFilename_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(DestFilename_TextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Receiver_PanelLayout.createSequentialGroup()
-                        .addGroup(Receiver_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(RejectFile_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ReceiveFile_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Receiver_Progress_Main, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        ReceiveFile_Button.setBackground(new java.awt.Color(128, 131, 223));
+        ReceiveFile_Button.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        ReceiveFile_Button.setForeground(new java.awt.Color(255, 255, 255));
+        ReceiveFile_Button.setText("Accept File");
+        ReceiveFile_Button.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 204, 204)));
+        ReceiveFile_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReceiveFile_ButtonActionPerformed(evt);
+            }
+        });
+        Receiver_Panel.add(ReceiveFile_Button);
+        ReceiveFile_Button.setBounds(580, 200, 200, 40);
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Logo.png"))); // NOI18N
+
+        Name_Label.setForeground(new java.awt.Color(255, 255, 255));
+        Name_Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Name_Label.setText("Hello");
 
         javax.swing.GroupLayout Background_PanelLayout = new javax.swing.GroupLayout(Background_Panel);
         Background_Panel.setLayout(Background_PanelLayout);
         Background_PanelLayout.setHorizontalGroup(
             Background_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Background_PanelLayout.createSequentialGroup()
-                .addGroup(Background_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(Background_PanelLayout.createSequentialGroup()
+                .addGroup(Background_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Receiver_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Sender_Panel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Background_PanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(Background_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Receiver_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Sender_Panel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(Background_PanelLayout.createSequentialGroup()
-                        .addGap(359, 359, 359)
-                        .addComponent(Title_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BasicDetails_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(Title_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                        .addGroup(Background_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Name_Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BasicDetails_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         Background_PanelLayout.setVerticalGroup(
@@ -371,13 +363,21 @@ public class IPFileMessenger_New extends javax.swing.JFrame {
             .addGroup(Background_PanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(Background_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Title_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BasicDetails_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                    .addGroup(Background_PanelLayout.createSequentialGroup()
+                        .addComponent(BasicDetails_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 2, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Background_PanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(Title_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Name_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Receiver_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Sender_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Receiver_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(96, 96, 96))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -385,14 +385,15 @@ public class IPFileMessenger_New extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(Background_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap()
+                .addComponent(Background_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(Background_Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(Background_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -492,6 +493,7 @@ public class Client extends Thread
         //System.out.println("Written 'file' to chat_out");
         
         // Read filename and ext and filesize
+        out.writeUTF(name);
         out.writeUTF(filename);
         out.writeUTF(ext);
         out.writeUTF(filesize + "");
@@ -605,6 +607,7 @@ public class SendFileThread extends Thread
                 }
                 ChatHistory_TextArea.append(client.filename + "." + client.ext + " of size " + client.filesize + " sent successfully.\n");
                 System.out.println(client.filename + "." + client.ext + " of size " + client.filesize + " sent successfully.\n");
+                Sender_Progress_Main.setValue((int)client.filesize);
             }
             else 
             {
@@ -636,6 +639,7 @@ public class Server
     int no_of_clients = 0;
     boolean[] client_availablity = new boolean[10]; 
     
+    String[] clientname = new String[10];
     String[] filename = new String[10];
     String[] ext = new String[10];
     long[] filesize = new long[10];
@@ -771,12 +775,17 @@ public class Server
             out[client_index] = new DataOutputStream(socket[client_index].getOutputStream()); 
 
             // Read filename and ext and filesize
+            clientname[client_index] = in[client_index].readUTF(); 
             filename[client_index] = in[client_index].readUTF(); 
             ext[client_index] = in[client_index].readUTF(); 
             filesize[client_index] = Integer.parseInt(in[client_index].readUTF()); 
-
-            ChatHistory_TextArea.append("\n" + socket[client_index].getInetAddress() + " wants to send " + filename[client_index] + "." + ext[client_index] + " of size " + filesize[client_index] + "...\n");
-            System.out.println(socket[client_index].getInetAddress() + " wants to send " + filename[client_index] + "." + ext[client_index] + " of size " + filesize[client_index] + "...");
+            
+            String COLOR_RESET = "\u001B[0m";
+            String COLOR_BG_BLUE = "\u001B[44m";
+            String COLOR_FG_RED = "\u001B[31m";
+            
+            ChatHistory_TextArea.append("\n" + clientname[client_index] + " from " + socket[client_index].getInetAddress() + " wants to send " + filename[client_index] + "." + ext[client_index] + " of size " + filesize[client_index] + "...\n");
+            System.out.println(COLOR_FG_RED + clientname[client_index] + COLOR_RESET + " from " + socket[client_index].getInetAddress() + " wants to send " + filename[client_index] + "." + ext[client_index] + " of size " + filesize[client_index] + "...");
             
             Receiver_Progress_Main.setValue(0);
         }
@@ -893,6 +902,9 @@ public class ReceiveFileThread extends Thread
                             Receiver_Progress_Main.setValue((int) server.loaded_size[client_index]);
                         }
                     } 
+                    ChatHistory_TextArea.append(server.filename[client_index] + ": " + server.loaded_size[client_index] + "/" + server.filesize[client_index] + ".\n");
+                    //System.out.println(server.filename[client_index] + ": " + server.loaded_size[client_index] + "/" + server.filesize[client_index] + ".\n");
+                    Receiver_Progress_Main.setValue((int)server.filesize[client_index]);
                     System.out.println("Server Over!");
                     fout.close();
                 }
@@ -1026,6 +1038,8 @@ public class ChatClientServerThread extends Thread
     }
 }
     
+    public String name = "A";
+
     int sender_port = 9009;
     int receiver_port = 9009;
     String IPAddress = null;
@@ -1080,6 +1094,8 @@ public class ChatClientServerThread extends Thread
     
     Sender_Progress_Main.setMinimum(0);
     Receiver_Progress_Main.setMinimum(0);
+    
+    Name_Label.setText("Hello " + name + "!");
     }//GEN-LAST:event_formWindowOpened
 
     private void RejectFile_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RejectFile_ButtonActionPerformed
@@ -1151,6 +1167,14 @@ public class ChatClientServerThread extends Thread
     } 
     }//GEN-LAST:event_SendChat_ButtonActionPerformed
 
+    private void Filename_TextBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Filename_TextBoxActionPerformed
+
+    }//GEN-LAST:event_Filename_TextBoxActionPerformed
+
+    private void Directory_TextBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Directory_TextBoxActionPerformed
+
+    }//GEN-LAST:event_Directory_TextBoxActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1204,6 +1228,7 @@ public class ChatClientServerThread extends Thread
     private javax.swing.JTextField IPAddr_3_TextBox;
     private javax.swing.JTextField IPAddr_4_TextBox;
     private javax.swing.JLabel IPAddr_Label;
+    private javax.swing.JLabel Name_Label;
     private javax.swing.JButton ReceiveFile_Button;
     private javax.swing.JPanel Receiver_Panel;
     private javax.swing.JLabel Receiver_Port_Label;
@@ -1218,6 +1243,7 @@ public class ChatClientServerThread extends Thread
     private javax.swing.JProgressBar Sender_Progress_Main;
     private javax.swing.JLabel Title_Label;
     private javax.swing.JButton UpdatePortIP_Button;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }
